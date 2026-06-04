@@ -1,0 +1,244 @@
+{
+  "info": {
+    "name": "NestJS API Project",
+    "_postman_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+    "description": "Collection for Auth, Countries, Cities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John\",\n  \"email\": \"john@gmail.com\",\n  \"password\": \"123456\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@gmail.com\",\n  \"password\": \"123456\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.environment.set('token', jsonData.data.access_token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Countries",
+      "item": [
+        {
+          "name": "Create Country",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/country",
+              "host": ["{{base_url}}"],
+              "path": ["country"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tunisia\",\n  \"code\": \"TN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Countries",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/country",
+              "host": ["{{base_url}}"],
+              "path": ["country"]
+            }
+          }
+        },
+        {
+          "name": "Get One Country",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/country/1",
+              "host": ["{{base_url}}"],
+              "path": ["country", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Country",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/country/1",
+              "host": ["{{base_url}}"],
+              "path": ["country", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tunisie Updated\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Country",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/country/1",
+              "host": ["{{base_url}}"],
+              "path": ["country", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cities",
+      "item": [
+        {
+          "name": "Create City",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cities",
+              "host": ["{{base_url}}"],
+              "path": ["cities"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sousse\",\n  \"description\": \"Beautiful city\",\n  \"active\": true,\n  \"countryId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Cities (JWT)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cities",
+              "host": ["{{base_url}}"],
+              "path": ["cities"]
+            }
+          }
+        },
+        {
+          "name": "Get One City",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/cities/1",
+              "host": ["{{base_url}}"],
+              "path": ["cities", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update City",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/cities/1",
+              "host": ["{{base_url}}"],
+              "path": ["cities", "1"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sousse Updated\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete City",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/cities/1",
+              "host": ["{{base_url}}"],
+              "path": ["cities", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
